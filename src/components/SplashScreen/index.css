@@ -1,0 +1,33 @@
+.splashScreen {
+height: 100%;
+width: 100%;
+margin: auto;
+padding: auto;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.titleSplash {
+    font-family: 'Black Ops One', cursive;
+    font-size: 510%;
+    content: '';
+    position: absolute;
+    top: 10%;
+}
+
+.Logo {
+    animation: logoRotate 1.5s ease-in-out;
+width: 30%;
+margin: auto;
+}
+
+@keyframes logoRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
