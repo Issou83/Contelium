@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import SplashScreen from './components/SplashScreen/SplashScreen';  // Assurez-vous de l'ajouter à vos composants
 import MainMenu from './components/MainMenu/MainMenu';  // Assurez-vous de l'ajouter à vos composants
-// import RegisterForm from './components/RegisterForm'; // À ajouter
-// import LoginForm from './components/LoginForm'; // À ajouter
+import RegisterForm from './components/RegisterForm/RegisterForm'; // À ajouter
+import LoginForm from './components/LoginForm/LoginForm'; // À ajouter
+import UserProfile from './components/UserProfile/UserProfile';
 
 import './App.css'
 
@@ -15,7 +16,7 @@ function App() {
       setTimeout(() => {
         setSplashDone(true);
         setView('menu');
-      }, 3000);
+      }, 2000);
     }
   }, [view]);
 
@@ -23,8 +24,9 @@ function App() {
     <div className='mainScreen'>
       {view === 'splash' && <SplashScreen />}
       {view === 'menu' && splashDone && <MainMenu setView={setView} />}
-      {/* {view === 'register' && <RegisterForm />}
-      {view === 'login' && <LoginForm />} */}
+      {view === 'register' && <RegisterForm />}
+      {view === 'login' && <LoginForm />}
+      {view === 'profile' && <UserProfile />}
     </div>
   );
 }

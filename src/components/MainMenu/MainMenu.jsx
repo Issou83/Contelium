@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import PropTypes from 'prop-types'; // Ajoutez cette ligne
+
 import "./index.css"
 
 const MainMenu = ({ setView }) => {
@@ -23,5 +25,10 @@ const MainMenu = ({ setView }) => {
     </div>
   );
 }
+
+// Ajoutez cette partie pour valider les props
+MainMenu.propTypes = {
+  setView: PropTypes.func.isRequired,
+};
 
 export default MainMenu
