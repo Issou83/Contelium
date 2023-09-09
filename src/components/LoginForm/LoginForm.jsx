@@ -1,38 +1,54 @@
-import { useState } from 'react';
-import './index.css'; // Créez ce fichier pour ajouter des styles
+import { useState } from "react";
+import axios from "axios";
+import "./index.css";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/user/login", {
+        username,
+        password,
+      });
+
+      if (response.data.success) {
+        console.log("Authentification réussie:", response.data);
+      } else {
+        console.log("Échec de l'authentification");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.log("Échec de l'authentification");
+      } else {
+        console.error("Une erreur est survenue:", error);
+      }
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Effectuer des validations de formulaire ici
-    
-    // Simuler un appel API
-    setTimeout(() => {
-      console.log('Utilisateur connecté avec succès : ', { username, password });
-      // Ici, vous pouvez passer à la page personnalisée de l'utilisateur ou faire ce que vous voulez après une connexion réussie
-    }, 2000);
+    handleLogin();
   };
 
   return (
-    <div className='loginForm'>
+    <div className="loginForm">
       <h1>Se connecter</h1>
       <form onSubmit={handleSubmit}>
         <input
-          type='text'
-          placeholder='Pseudo'
+          type="text"
+          placeholder="Pseudo"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type='password'
-          placeholder='Mot de passe'
+          type="password"
+          placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='submit'>Se connecter</button>
+        <button type="submit">Se connecter</button>
       </form>
     </div>
   );

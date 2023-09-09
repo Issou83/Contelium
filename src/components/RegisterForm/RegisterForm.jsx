@@ -1,70 +1,68 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    confirmPassword: ''
+    username: "",
+    email: "",
+    password: "",
   });
-  
-  const [errors, setErrors] = useState({});
 
-  const validatePassword = (password) => {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/;
-    return re.test(String(password));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let validationErrors = {};
-    
-    if (!validatePassword(formData.password)) {
-      validationErrors.password = 'Le mot de passe doit contenir au moins 10 caractères, une majuscule, une minuscule et un caractère spécial.';
-    }
+    try {
+      const response = await fetch("http://localhost:3001/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (formData.password !== formData.confirmPassword) {
-      validationErrors.confirmPassword = 'Les mots de passe ne correspondent pas.';
-    }
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      // Simuler un appel API
-      console.log('Envoi des données : ', formData);
+      const data = await response.json();
+      if (data.message) {
+        console.log("User registered:", data.message);
+      }
+    } catch (error) {
+      console.error("There was an error registering the user", error);
     }
   };
-
-  // Simuler un appel API
-setTimeout(() => {
-    console.log('Utilisateur enregistré avec succès : ', formData);
-    // Ici, vous pouvez passer à l'écran de connexion ou faire ce que vous voulez après un enregistrement réussi
-  }, 2000);
-  
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Pseudo"
-        value={formData.username}
-        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Mot de passe"
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-      />
-      {errors.password && <p>{errors.password}</p>}
-      <input
-        type="password"
-        placeholder="Confirmer le mot de passe"
-        value={formData.confirmPassword}
-        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-      />
-      {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-      <button type="submit">Inscription</button>
-    </form>
+    <div>
+      <h1>Enregistrer</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
 
