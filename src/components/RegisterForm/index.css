@@ -1,0 +1,37 @@
+.registerMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.registerCase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.registerCase h2 {
+    
+}
+.registerCase input {
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: none;
+    box-shadow:  0px 0px 20px#1100ff;
+    transition: 1s;
+    margin: 10px;
+    padding: 5px;
+}
+
+.registerCase input:hover {
+    background: linear-gradient(0.08turn, #000000 60%,#ff000d 90%);
+    box-shadow:  0px 0px 50px#ff000d;
+    transition: 1s;
+}
+
+.btnValider {
+    text-align: center;
+    
+}

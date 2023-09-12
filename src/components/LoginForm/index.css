@@ -1,0 +1,19 @@
+.loginCase input {
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: none;
+    box-shadow:  0px 0px 20px#1100ff;
+    transition: 1s;
+    margin: 10px;
+    padding: 5px;
+}
+
+.loginCase {
+ 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+}

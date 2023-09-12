@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./index.css";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -36,32 +37,48 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
-      <h1>Enregistrer</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Register</button>
-      </form>
+    <div className="registerMain">
+      <h1 className="titleSplash">
+        <span data-letter="C">C</span>
+        <span data-letter="O">O</span>
+        <span data-letter="N">N</span>
+        <span data-letter="S">S</span>
+        <span data-letter="T">T</span>
+        <span data-letter="E">E</span>
+        <span data-letter="L">L</span>
+        <span data-letter="I">I</span>
+        <span data-letter="U">U</span>
+        <span data-letter="M">M</span>
+      </h1>
+      <div className="registerCase">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        <button className="btnValider" type="submit">
+          Valider
+        </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
-import "./index.css";
+import { useUser } from '../../UserContext';  // Import du UserContext
+import PropTypes from 'prop-types';
+import "./index.css"
 
-const LoginForm = () => {
+const LoginForm = ({ setView }) => {
+  const { setUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -15,14 +19,17 @@ const LoginForm = () => {
 
       if (response.data.success) {
         console.log("Authentification réussie:", response.data);
+        setUser(response.data.user);
+        setView('userMenu');  // Redirigez l'utilisateur vers le UserMenu après une connexion réussie
       } else {
-        console.log("Échec de l'authentification");
+        setErrorMessage("Échec de l'authentification");
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
-        console.log("Échec de l'authentification");
+        setErrorMessage("Échec de l'authentification");
       } else {
         console.error("Une erreur est survenue:", error);
+        setErrorMessage("Une erreur est survenue lors de la tentative de connexion");
       }
     }
   };
@@ -33,25 +40,35 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="loginForm">
-      <h1>Se connecter</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Pseudo"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Se connecter</button>
-      </form>
+    <div className="registerMain">
+      <h1 className="titleSplash">
+        {/*... partie titre ...*/}
+      </h1>
+      <div className="loginCase">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Pseudo"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          <button type="submit">Se connecter</button>
+        </form>
+      </div>
     </div>
   );
+};
+
+LoginForm.propTypes = {
+  setView: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
