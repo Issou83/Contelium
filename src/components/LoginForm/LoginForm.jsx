@@ -12,7 +12,7 @@ const LoginForm = ({ setView }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/user/login", {
+      const response = await axios.post("https://constelium-api.vercel.app/user/login", {
         username,
         password,
       });
