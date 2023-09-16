@@ -1,21 +1,33 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../UserContext";
+import "./index.css";
 
 function UserNFT() {
   const { user } = useUser();
   const [nftImages, setNftImages] = useState([]);
   const [collectionName, setCollectionName] = useState("");
   const [contratNumber, setContratNumber] = useState("");
-  const [chain, setChain] = useState("");  // Pas de valeur par défaut, oblige l'utilisateur à choisir
+  const [chain, setChain] = useState(""); // Pas de valeur par défaut, oblige l'utilisateur à choisir
 
-  const chains = ['ethereum', 'polygon', 'klaytn', 'solana', 'arbitrum', 'optimism', 'avalanche', 'bnb', 'zora', 'base'];
+  const chains = [
+    "ethereum",
+    "polygon",
+    "klaytn",
+    "solana",
+    "arbitrum",
+    "optimism",
+    "avalanche",
+    "bnb",
+    "zora",
+    "base",
+  ];
 
   useEffect(() => {
     if (user && user.ethAddress && collectionName) {
-        fetchCollectionNFTs(collectionName);
+      fetchCollectionNFTs(collectionName);
     }
     if (user && user.ethAddress && contratNumber && chain) {
-        fetchContratNFTs(contratNumber);
+      fetchContratNFTs(contratNumber);
     }
   }, [user, collectionName, contratNumber, chain]);
 
@@ -53,7 +65,7 @@ function UserNFT() {
 
   return (
     <div>
-      <div>
+      <div className="searchCollection">
         <label>Nom de la collection : </label>
         <input
           type="text"
@@ -64,27 +76,32 @@ function UserNFT() {
           Rechercher
         </button>
       </div>
-      <div>
-        <label>Chaîne : </label>
-        <select value={chain} onChange={(e) => setChain(e.target.value)}>
-          <option value="" disabled>Sélectionnez une chaîne</option>
-          {chains.map((ch) => (
-            <option key={ch} value={ch}>{ch}</option>
-          ))}
-        </select>
+      <div className="searchContrat">
+        <div>
+          <label>Chaîne : </label>
+          <select value={chain} onChange={(e) => setChain(e.target.value)}>
+            <option value="" disabled>
+              Sélectionnez une chaîne
+            </option>
+            {chains.map((ch) => (
+              <option key={ch} value={ch}>
+                {ch}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Nom du contrat : </label>
+          <input
+            type="text"
+            value={contratNumber}
+            onChange={(e) => setContratNumber(e.target.value)}
+          />
+          <button onClick={() => fetchContratNFTs(contratNumber)}>
+            Rechercher
+          </button>
+        </div>
       </div>
-      <div>
-        <label>Nom du contrat : </label>
-        <input
-          type="text"
-          value={contratNumber}
-          onChange={(e) => setContratNumber(e.target.value)}
-        />
-        <button onClick={() => fetchContratNFTs(contratNumber)}>
-          Rechercher
-        </button>
-      </div>
-
       <div>
         {nftImages.map((image, index) => (
           <img key={index} src={image} alt="NFT" />
