@@ -19,17 +19,23 @@ const LoginForm = ({ setView }) => {
 
       if (response.data.success) {
         console.log("Authentification réussie:", response.data);
+        alert("connection Réussie");
         setUser(response.data.user);
         setView('userMenu');  // Redirigez l'utilisateur vers le UserMenu après une connexion réussie
       } else {
         setErrorMessage("Échec de l'authentification");
+        alert("Echec de la connection");
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setErrorMessage("Échec de l'authentification");
+        alert("Echec de la connection");
+
       } else {
         console.error("Une erreur est survenue:", error);
-        setErrorMessage("Une erreur est survenue lors de la tentative de connexion");
+        // setErrorMessage("Une erreur est survenue lors de la tentative de connexion");
+        alert("Une erreur est survenue lors de la tentative de connexion");
+
       }
     }
   };
