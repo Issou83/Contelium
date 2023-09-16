@@ -32,7 +32,7 @@ function UserNFT() {
   }, [user, collectionName, contratNumber, chain]);
 
   const fetchCollectionNFTs = async (slug) => {
-    const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=50`;
+    const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=40000`;
     const headers = {
       "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
     };
@@ -48,7 +48,7 @@ function UserNFT() {
   };
 
   const fetchContratNFTs = async (address) => {
-    const url = `https://api.opensea.io/v2/chain/${chain}/contract/${address}/nfts?limit=50`;
+    const url = `https://api.opensea.io/v2/chain/${chain}/contract/${address}/nfts?limit=40000`;
     const headers = {
       "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
     };
