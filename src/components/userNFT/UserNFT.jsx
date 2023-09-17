@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../../UserContext";
+import Carousel from '../Carousel/Carousel';
 import "./index.css";
 
 function UserNFT() {
@@ -7,20 +8,10 @@ function UserNFT() {
   const [nftImages, setNftImages] = useState([]);
   const [collectionName, setCollectionName] = useState("");
   const [contratNumber, setContratNumber] = useState("");
-  const [chain, setChain] = useState(""); // Pas de valeur par défaut, oblige l'utilisateur à choisir
+  const [chain, setChain] = useState("");
+  const [carouselVisible, setCarouselVisible] = useState(false);
 
-  const chains = [
-    "ethereum",
-    "polygon",
-    "klaytn",
-    "solana",
-    "arbitrum",
-    "optimism",
-    "avalanche",
-    "bnb",
-    "zora",
-    "base",
-  ];
+  const chains = ["ethereum", "polygon", "klaytn", "solana", "arbitrum", "optimism", "avalanche", "bnb", "zora", "base"];
 
   useEffect(() => {
     if (user && user.ethAddress && collectionName) {
@@ -32,7 +23,7 @@ function UserNFT() {
   }, [user, collectionName, contratNumber, chain]);
 
   const fetchCollectionNFTs = async (slug) => {
-    const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=40000`;
+    const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=50`;
     const headers = {
       "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
     };
@@ -42,13 +33,14 @@ function UserNFT() {
       const data = await response.json();
       const images = data.nfts.map((nft) => nft.image_url);
       setNftImages(images);
+      console.log(images)
     } catch (err) {
       console.error(err);
     }
   };
 
   const fetchContratNFTs = async (address) => {
-    const url = `https://api.opensea.io/v2/chain/${chain}/contract/${address}/nfts?limit=40000`;
+    const url = `https://api.opensea.io/v2/chain/${chain}/contract/${address}/nfts?limit=50`;
     const headers = {
       "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
     };
@@ -102,13 +94,16 @@ function UserNFT() {
           </button>
         </div>
       </div>
-      <div>
+      <div onClick={() => setCarouselVisible(true)}>
         {nftImages.map((image, index) => (
-          <img key={index} src={image} alt="NFT" />
+          <img key={index} src={image} alt="NFT" className="nft-thumbnail" />
         ))}
       </div>
+      {carouselVisible && <Carousel images={nftImages} onClose={() => setCarouselVisible(false)} />}
     </div>
   );
 }
+
+
 
 export default UserNFT;
