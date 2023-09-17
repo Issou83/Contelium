@@ -75,8 +75,8 @@ left: 0;
 
     .carousel-rotate {
         position: absolute;
-        bottom: 50%;
-        right: 50%;
+        top: 10px;
+        left: 10px;
         background: rgba(0, 0, 0, 0.253);
         color: white;
         padding: 11px 11px 9px 15px;

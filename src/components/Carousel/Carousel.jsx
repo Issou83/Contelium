@@ -8,6 +8,7 @@ function Carousel({ images, onClose }) {
   const [autoSlideInterval, setAutoSlideInterval] = useState(7000);
   const [slideDuration, setSlideDuration] = useState(7); // in seconds
   const [rotation, setRotation] = useState(0);
+  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,6 +32,20 @@ function Carousel({ images, onClose }) {
     });
   };
 
+  useEffect(() => {
+    const show = () => setShowControls(true);
+    const hideControls = setTimeout(() => setShowControls(false), 50);
+
+    window.addEventListener("mousemove", show);
+    window.addEventListener("keydown", show);
+
+    return () => {
+      window.removeEventListener("mousemove", show);
+      window.removeEventListener("keydown", show);
+      clearTimeout(hideControls);
+    };
+  }, []);
+
   const handleSlideDurationChange = (e) => {
     const duration = parseInt(e.target.value, 10);
     if (!isNaN(duration)) {
@@ -48,29 +63,35 @@ function Carousel({ images, onClose }) {
       className="carousel-container"
       style={{ transform: `rotate(${rotation}deg)` }}
     >
-      <span className="carousel-close" onClick={onClose}>
-        &times;
-      </span>
-      <button className="carousel-prev" onClick={prevImage}>
-        &lt;
-      </button>
       <img src={images[currentIndex]} alt="NFT" className="carousel-image" />
-      <button className="carousel-next" onClick={nextImage}>
-        &gt;
-      </button>
-      <div className="carousel-controls">
-        Durée affichage :
-        <input
-          type="number"
-          min="1"
-          value={slideDuration}
-          onChange={handleSlideDurationChange}
-        />{" "}
-        sec
-      </div>
-        <button className="carousel-rotate" onClick={rotateImage}>
-          ⟳
-        </button>
+
+      {showControls && (
+        <div className="carousel-controls">
+          Durée affichage :
+          <input
+            type="number"
+            min="1"
+            value={slideDuration}
+            onChange={handleSlideDurationChange}
+          />{" "}
+          sec
+          <button className="carousel-prev" onClick={prevImage}>
+            &lt;
+          </button>
+          <button className="carousel-next" onClick={nextImage}>
+            &gt;
+          </button>
+          <span className="carousel-indicator">{`${currentIndex + 1}/${
+            images.length
+          }`}</span>
+          <button className="carousel-rotate" onClick={rotateImage}>
+            ↻
+          </button>
+          <span className="carousel-close" onClick={onClose}>
+            &times;
+          </span>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,15 @@
+.searchZone {
+    margin: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
 
 .searchContrat, .searchCollection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     cursor: pointer;
     font-family: 'Black Ops One', cursive;
     font-size: 1.8rem;
@@ -19,3 +29,38 @@
     transition: 1s;
 }
 
+
+.buttonsSearch {
+    color: white;
+    background: rgba(105, 90, 205, 0.459);
+    position: absolute;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    top: 230px;
+}
+
+.NFTCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.NFTCard img {
+    max-width: 20%;
+    margin: 10px;
+    padding: 0;
+    border: 3px solid white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 50px rgb(0, 0, 0);
+    scale: 1;
+    transition: box-shadow, scale, 0.5s;
+}
+.NFTCard img:hover {
+    box-shadow: 0px 0px 50px white;
+    cursor: pointer;
+    scale: 1.15;
+    z-index: 5;
+}

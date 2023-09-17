@@ -57,44 +57,46 @@ function UserNFT() {
 
   return (
     <div>
-      <div className="searchCollection">
-        <label>Nom de la collection : </label>
-        <input
-          type="text"
-          value={collectionName}
-          onChange={(e) => setCollectionName(e.target.value)}
-        />
-        <button onClick={() => fetchCollectionNFTs(collectionName)}>
-          Rechercher
-        </button>
-      </div>
-      <div className="searchContrat">
-        <div>
-          <label>Chaîne : </label>
-          <select value={chain} onChange={(e) => setChain(e.target.value)}>
-            <option value="" disabled>
-              Sélectionnez une chaîne
-            </option>
-            {chains.map((ch) => (
-              <option key={ch} value={ch}>
-                {ch}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Nom du contrat : </label>
+      <div className="searchZone">
+        <div className="searchCollection">
+          <label>Nom de la collection : </label>
           <input
             type="text"
-            value={contratNumber}
-            onChange={(e) => setContratNumber(e.target.value)}
+            value={collectionName}
+            onChange={(e) => setCollectionName(e.target.value)}
           />
-          <button onClick={() => fetchContratNFTs(contratNumber)}>
+          <button className="buttonsSearch" onClick={() => fetchCollectionNFTs(collectionName)}>
             Rechercher
           </button>
         </div>
+        <div className="searchContrat">
+          <div>
+            <label>Chaîne : </label>
+            <select value={chain} onChange={(e) => setChain(e.target.value)}>
+              <option value="" disabled>
+                Sélectionnez une chaîne
+              </option>
+              {chains.map((ch) => (
+                <option key={ch} value={ch}>
+                  {ch}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Nom du contrat : </label>
+            <input
+              type="text"
+              value={contratNumber}
+              onChange={(e) => setContratNumber(e.target.value)}
+            />
+          </div>
+            <button  className="buttonsSearch"onClick={() => fetchContratNFTs(contratNumber)}>
+              Rechercher
+            </button>
+        </div>
       </div>
-      <div onClick={() => setCarouselVisible(true)}>
+      <div className="NFTCard" onClick={() => setCarouselVisible(true)}>
         {nftImages.map((image, index) => (
           <img key={index} src={image} alt="NFT" className="nft-thumbnail" />
         ))}
