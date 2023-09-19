@@ -32,6 +32,8 @@ function Carousel({ images, onClose }) {
     });
   };
 
+
+
   useEffect(() => {
     const show = () => setShowControls(true);
     const hideControls = setTimeout(() => setShowControls(false), 50);
@@ -75,7 +77,11 @@ function Carousel({ images, onClose }) {
             onChange={handleSlideDurationChange}
           />{" "}
           sec
-          <button className="carousel-prev" onClick={prevImage}>
+        </div>
+      )}
+       {showControls && (
+            <div className="control">
+         <button className="carousel-prev" onClick={prevImage}>
             &lt;
           </button>
           <button className="carousel-next" onClick={nextImage}>
@@ -90,8 +96,8 @@ function Carousel({ images, onClose }) {
           <span className="carousel-close" onClick={onClose}>
             &times;
           </span>
-        </div>
-      )}
+          </div>
+ )}
     </div>
   );
 }

@@ -35,7 +35,7 @@ function UserProfile() {
 
   return (
     <div>
-      <h2>Profil</h2>
+      {/* <h2>Profil</h2> */}
       {/* <div>
         <label>Nom:</label>
         {editable ? (

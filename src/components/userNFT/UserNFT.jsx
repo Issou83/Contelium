@@ -8,6 +8,7 @@ function UserNFT() {
   const [nftImages, setNftImages] = useState([]);
   const [collectionName, setCollectionName] = useState("");
   const [contratNumber, setContratNumber] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
   const [chain, setChain] = useState("");
   const [carouselVisible, setCarouselVisible] = useState(false);
 
@@ -20,7 +21,10 @@ function UserNFT() {
     if (user && user.ethAddress && contratNumber && chain) {
       fetchContratNFTs(contratNumber);
     }
-  }, [user, collectionName, contratNumber, chain]);
+    if (user && user.ethAddress && walletAddress && chain) {
+      fetchWalletAddress(walletAddress);
+    }
+  }, [user, collectionName, contratNumber, chain, walletAddress]);
 
   const fetchCollectionNFTs = async (slug) => {
     const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=50`;
@@ -54,9 +58,25 @@ function UserNFT() {
       console.error(err);
     }
   };
+  const fetchWalletAddress = async (walletAddress) => {
+    const url = `https://api.opensea.io/v2/chain/${chain}/account/${walletAddress}/nfts?limit=50`;
+    const headers = {
+      "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
+    };
+
+    try {
+      const response = await fetch(url, { headers });
+      const data = await response.json();
+      const images = data.nfts.map((nft) => nft.image_url);
+      setNftImages(images);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
-    <div>
+    <div className="searchNFT">
+        <h1>Rechercher des NFT</h1>
       <div className="searchZone">
         <div className="searchCollection">
           <label>Nom de la collection : </label>
@@ -92,6 +112,32 @@ function UserNFT() {
             />
           </div>
             <button  className="buttonsSearch"onClick={() => fetchContratNFTs(contratNumber)}>
+              Rechercher
+            </button>
+        </div>
+        <div className="searchWallet">
+          <div>
+            <label>Blockchain : </label>
+            <select value={chain} onChange={(e) => setChain(e.target.value)}>
+              <option value="" disabled>
+                Sélectionnez une chaîne
+              </option>
+              {chains.map((ch) => (
+                <option key={ch} value={ch}>
+                  {ch}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Mon Wallet : </label>
+            <input
+              type="text"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
+            />
+          </div>
+            <button  className="buttonsSearch"onClick={() => fetchWalletAddress(walletAddress)}>
               Rechercher
             </button>
         </div>

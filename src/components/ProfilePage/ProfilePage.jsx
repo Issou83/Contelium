@@ -4,7 +4,7 @@ import UserNFT from '../userNFT/UserNFT';
 
 function ProfilePage() {
   return (
-    <div>
+    <div className='profilePage'>
       <UserProfile />
       <UserNFT />
     </div>

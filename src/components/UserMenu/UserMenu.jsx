@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types'; // Ajoutez cette ligne
-
+import PropTypes from 'prop-types';
+import "./index.css";
 
 
 function UserMenu({ setView }) {
   return (
-    <div>
-      <button onClick={() => setView('profile')}>Voir le profil</button>
-      <button onClick={() => setView('NFTs')}>Voir mes NFTs</button>
-      {/* Ajoutez d'autres options si nécessaire */}
+    <div className='mainUserMenu'>
+      <button className='btnmainUserMenu' onClick={() => setView('profile')}>Voir le profil</button>
+      <button className='btnmainUserMenu' onClick={() => setView('NFTs')}>Voir mes NFTs</button>
+      {/*Autres options si nécessaire */}
     </div>
   );
 }
