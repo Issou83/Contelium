@@ -1,3 +1,17 @@
+.searchNFT {
+        animation: fade 2.5s ease-in-out;
+
+}
+@keyframes fade {
+ 
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .searchNFT h1{
     margin: 100px 0;
 text-align: center;

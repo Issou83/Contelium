@@ -21,7 +21,7 @@ function App() {
       setTimeout(() => {
         setSplashDone(true);
         setView('menu');
-      }, 2000);
+      }, 2500);
     }
   }, [view]);
 
