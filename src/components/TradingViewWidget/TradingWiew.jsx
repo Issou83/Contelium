@@ -4,6 +4,9 @@ function TradingViewWidget() {
   const container = useRef();
 
   useEffect(() => {
+    console.log("TradingViewWidget useEffect executed");
+    localStorage.clear();
+
     const script = document.createElement("script");
     script.src =
       "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
@@ -30,7 +33,11 @@ function TradingViewWidget() {
           "support_host": "https://www.tradingview.com"
         }`;
     container.current.appendChild(script);
-  }, []);
+
+    return () => {
+      container.current.removeChild(script);
+    };
+  }, []); // Pass an empty array to run this effect only once
 
   return (
     <div

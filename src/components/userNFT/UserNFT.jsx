@@ -97,10 +97,7 @@ function UserNFT() {
             value={collectionName}
             onChange={(e) => setCollectionName(e.target.value)}
           />
-          <button
-            className="buttonsSearch"
-            onClick={() => fetchCollectionNFTs(collectionName)}
-          >
+          <button className="buttonsSearch" onClick={() => fetchCollectionNFTs(collectionName)}>
             Rechercher
           </button>
         </div>
@@ -126,12 +123,9 @@ function UserNFT() {
               onChange={(e) => setContratNumber(e.target.value)}
             />
           </div>
-          <button
-            className="buttonsSearch"
-            onClick={() => fetchContratNFTs(contratNumber)}
-          >
-            Rechercher
-          </button>
+            <button  className="buttonsSearch"onClick={() => fetchContratNFTs(contratNumber)}>
+              Rechercher
+            </button>
         </div>
         <div className="searchWallet">
           <div>
@@ -155,28 +149,20 @@ function UserNFT() {
               onChange={(e) => setWalletAddress(e.target.value)}
             />
           </div>
-          <button
-            className="buttonsSearch"
-            onClick={() => fetchWalletAddress(walletAddress)}
-          >
-            Rechercher
-          </button>
+            <button  className="buttonsSearch"onClick={() => fetchWalletAddress(walletAddress)}>
+              Rechercher
+            </button>
         </div>
-      </div> */}
-      <div className="viewTrad">
-        <TradinWiewWidget />
       </div>
       <div className="NFTCard" onClick={() => setCarouselVisible(true)}>
         {nftImages.map((image, index) => (
           <img key={index} src={image} alt="NFT" className="nft-thumbnail" />
         ))}
       </div>
-      {carouselVisible && (
-        <Carousel
-          images={nftImages}
-          onClose={() => setCarouselVisible(false)}
-        />
-      )}
+      {carouselVisible && <Carousel images={nftImages} onClose={() => setCarouselVisible(false)} />} */}
+      <div>
+        <TradinWiewWidget />
+      </div>
     </div>
   );
 }

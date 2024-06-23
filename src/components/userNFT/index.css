@@ -1,4 +1,5 @@
 .searchNFT {
+  height: 100%;
   animation: fade 2.5s ease-in-out;
 }
 @keyframes fade {
