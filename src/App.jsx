@@ -10,6 +10,7 @@ import { UserProvider } from "./UserContext";
 
 import "./App.css";
 import UserNFT from "./components/userNFT/UserNFT";
+import UserCryptos from "./components/userCrytpos/userCryptos";
 
 function App() {
   const [splashDone, setSplashDone] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         {view === "register" && <RegisterForm />}
         {view === "userMenu" && <UserMenu setView={setView} />}
         {view === "NFTs" && <UserNFT />}
+        {view === "CRYPTOS" && <UserCryptos />}
         {view === "login" && <LoginForm setView={setView} />}
         {view === "profile" && <ProfilePage />}{" "}
         {/* Remplacez <UserProfile /> par <ProfilePage /> */}
