@@ -32,10 +32,10 @@ function App() {
         {view === "menu" && splashDone && <MainMenu setView={setView} />}
         {view === "register" && <RegisterForm />}
         {view === "userMenu" && <UserMenu setView={setView} />}
-        {view === "NFTs" && <UserNFT />}
-        {view === "CRYPTOS" && <UserCryptos />}
+        {view === "NFTs" && <UserNFT setView={setView} />}
+        {view === "CRYPTOS" && <UserCryptos setView={setView} />}
         {view === "login" && <LoginForm setView={setView} />}
-        {view === "profile" && <ProfilePage />}{" "}
+        {view === "profile" && <ProfilePage setView={setView} />}{" "}
         {/* Remplacez <UserProfile /> par <ProfilePage /> */}
       </div>
     </UserProvider>

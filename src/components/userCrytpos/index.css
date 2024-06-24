@@ -1,4 +1,4 @@
-.searchNFT {
+.searchCryptos {
   height: 100%;
   animation: fade 2.5s ease-in-out;
 }
@@ -9,4 +9,25 @@
   100% {
     opacity: 1;
   }
+}
+
+.tradinWiew {
+  height: 85%;
+  width: 100%;
+}
+
+.returnBtnmainUserMenu {
+  margin: 1%;
+  cursor: pointer;
+  font-family: "Black Ops One", cursive;
+  font-size: 1rem;
+  width: 10%;
+  min-width: 100px;
+  height: 10%;
+  color: white;
+  background: linear-gradient(0.08turn, #000000 60%, rgb(3, 3, 82) 90%);
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 0px 20px#1100ff;
+  transition: 1s;
 }
