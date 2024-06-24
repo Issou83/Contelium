@@ -160,9 +160,7 @@ function UserNFT() {
         ))}
       </div>
       {carouselVisible && <Carousel images={nftImages} onClose={() => setCarouselVisible(false)} />} */}
-      <div>
-        <TradinWiewWidget />
-      </div>
+      <TradinWiewWidget />
     </div>
   );
 }
