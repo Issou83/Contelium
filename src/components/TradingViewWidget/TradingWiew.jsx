@@ -15,7 +15,7 @@ function TradingViewWidget() {
     script.innerHTML = `
         {
           "autosize": true,
-          "symbol": "NASDAQ:AAPL",
+          "symbol": "GATEIO:BTCUSDT",
           "timezone": "Europe/Brussels",
           "theme": "dark",
           "style": "1",
