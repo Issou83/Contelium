@@ -1,98 +1,29 @@
-.searchNFT {
-  height: 100%;
-  animation: fade 2.5s ease-in-out;
-}
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.nft-search {
+  text-align: center;
+  margin: 20px;
 }
 
-.searchNFT h1 {
-  margin: 100px 0;
+.nft-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.nft-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  width: 200px;
   text-align: center;
 }
 
-.searchZone {
-  margin: 50px;
-  display: flex;
-  justify-content: space-around;
+.nft-item img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
-.searchContrat,
-.searchCollection,
-.searchWallet {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor: pointer;
-  font-family: "Black Ops One", cursive;
-  font-size: 1.8rem;
-  width: 40%;
-  height: 200px;
-  margin: 10px;
-  color: white;
-  background: linear-gradient(0.08turn, #000000 60%, rgb(3, 3, 82) 90%);
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0px 0px 20px #1100ff;
-  transition: 1s;
-}
-
-.searchContrat:hover,
-.searchCollection:hover,
-.searchWallet:hover {
-  background: linear-gradient(0.08turn, #000000 60%, #ff000d 90%);
-  box-shadow: 0px 0px 20px #ff000d;
-  transition: 1s;
-}
-
-.buttonsSearch {
-  position: absolute;
-  color: white;
-  background-color: black;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0px 0px 10px white;
-  bottom: 20px;
-  transition: 1s;
-}
-
-.buttonsSearch:hover {
-  box-shadow: 0px 0px 100px white;
-
-  transition: 1s;
-}
-
-.NFTCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.NFTCard img {
-  max-width: 20%;
-  margin: 10px;
-  padding: 0;
-  border: 3px solid white;
-  border-radius: 20px;
-  box-shadow: 0px 0px 50px rgb(0, 0, 0);
-  scale: 1;
-  transition: box-shadow, scale, 0.5s;
-}
-.NFTCard img:hover {
-  box-shadow: 0px 0px 50px white;
-  cursor: pointer;
-  scale: 1.15;
-  z-index: 5;
-}
-.viewTrad {
-  height: 100%;
+.imgNFT {
+  width: 50%;
+  height: 50%;
 }

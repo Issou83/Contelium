@@ -1,168 +1,125 @@
-import { useState, useEffect } from "react";
-import { useUser } from "../../UserContext";
-import Carousel from "../Carousel/Carousel";
-import TradinWiewWidget from "../TradingViewWidget/TradingWiew";
+import { useState } from "react";
+import axios from "axios";
 import "./index.css";
 
-function UserNFT() {
-  const { user } = useUser();
-  const [nftImages, setNftImages] = useState([]);
-  const [collectionName, setCollectionName] = useState("");
-  const [contratNumber, setContratNumber] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
-  const [chain, setChain] = useState("");
-  const [carouselVisible, setCarouselVisible] = useState(false);
+const UserNFT = () => {
+  const [query, setQuery] = useState("");
+  const [nfts, setNfts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchType, setSearchType] = useState("collection");
 
-  const chains = [
-    "ethereum",
-    "polygon",
-    "klaytn",
-    "solana",
-    "arbitrum",
-    "optimism",
-    "avalanche",
-    "bnb",
-    "zora",
-    "base",
-  ];
+  const handleSearch = async () => {
+    setLoading(true);
+    setError(null);
+    let endpoint = "";
+    let params = {};
 
-  useEffect(() => {
-    if (user && user.ethAddress && collectionName) {
-      fetchCollectionNFTs(collectionName);
+    switch (searchType) {
+      case "contract":
+        endpoint = `https://deep-index.moralis.io/api/v2/nft/${query}/owners`;
+        break;
+      case "wallet":
+        endpoint = `https://deep-index.moralis.io/api/v2/${query}/nft`;
+        break;
+      case "collection":
+        endpoint = `https://deep-index.moralis.io/api/v2/nft/search`;
+        params = { q: query };
+        break;
+      case "token":
+        endpoint = `https://deep-index.moralis.io/api/v2/nft/${query}`;
+        break;
+      default:
+        setError("Invalid search type");
+        setLoading(false);
+        return;
     }
-    if (user && user.ethAddress && contratNumber && chain) {
-      fetchContratNFTs(contratNumber);
-    }
-    if (user && user.ethAddress && walletAddress && chain) {
-      fetchWalletAddress(walletAddress);
-    }
-  }, [user, collectionName, contratNumber, chain, walletAddress]);
-
-  const fetchCollectionNFTs = async (slug) => {
-    const url = `https://api.opensea.io/v2/collection/${slug}/nfts?limit=50`;
-    const headers = {
-      "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
-    };
 
     try {
-      const response = await fetch(url, { headers });
-      const data = await response.json();
-      const images = data.nfts.map((nft) => nft.image_url);
-      setNftImages(images);
-      console.log(images);
+      const response = await axios.get(endpoint, {
+        headers: {
+          "X-API-Key":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjdkYzBkNTJhLTQwMDgtNDllOS04MWY1LWZjNDIwZTc5N2Y3NyIsIm9yZ0lkIjoiMzk3Njc3IiwidXNlcklkIjoiNDA4NjI2IiwidHlwZUlkIjoiZmI4YjFhMDItYTYxOS00ZmQ0LTk3ZWUtMGFhNjFhZjc4OGZkIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3MTkyNTc2OTUsImV4cCI6NDg3NTAxNzY5NX0.NC9bC2vFJwkWnU8M-_1GygfTulUFblEnEmCMV_bSKT0", // Remplacez par votre clé API Moralis
+          accept: "application/json",
+        },
+        params,
+      });
+      console.log(response.data); // Ajouter ce log pour vérifier les données retournées
+      setNfts(response.data.result || response.data);
     } catch (err) {
-      console.error(err);
+      setError(
+        `Failed to fetch NFTs: ${
+          err.response ? err.response.status : err.message
+        }`
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetchContratNFTs = async (address) => {
-    const url = `https://api.opensea.io/v2/chain/${chain}/contract/${address}/nfts?limit=50`;
-    const headers = {
-      "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
-    };
-
-    try {
-      const response = await fetch(url, { headers });
-      const data = await response.json();
-      const images = data.nfts.map((nft) => nft.image_url);
-      setNftImages(images);
-    } catch (err) {
-      console.error(err);
+  const getPlaceholder = () => {
+    switch (searchType) {
+      case "contract":
+        return "Enter contract address";
+      case "wallet":
+        return "Enter wallet address";
+      case "collection":
+        return "Enter collection name";
+      case "token":
+        return "Enter token address";
+      default:
+        return "Enter search query";
     }
   };
-  const fetchWalletAddress = async (walletAddress) => {
-    const url = `https://api.opensea.io/v2/chain/${chain}/account/${walletAddress}/nfts?limit=50`;
-    const headers = {
-      "X-API-KEY": "35d5620a260c4a37b4dd1ab108ba3f5d",
-    };
 
+  const getImageUrl = (metadata) => {
     try {
-      const response = await fetch(url, { headers });
-      const data = await response.json();
-      const images = data.nfts.map((nft) => nft.image_url);
-      setNftImages(images);
-    } catch (err) {
-      console.error(err);
+      const parsedMetadata = JSON.parse(metadata);
+      if (parsedMetadata.image) {
+        return parsedMetadata.image.replace("ipfs://", "https://ipfs.io/ipfs/");
+      }
+    } catch (error) {
+      console.error("Failed to parse metadata", error);
     }
+    return null;
   };
 
   return (
-    <div className="searchNFT">
-      {/* <h1>Rechercher des NFT</h1>
-      <div className="searchZone">
-        <div className="searchCollection">
-          <label>Nom de la collection : </label>
-          <input
-            type="text"
-            value={collectionName}
-            onChange={(e) => setCollectionName(e.target.value)}
-          />
-          <button className="buttonsSearch" onClick={() => fetchCollectionNFTs(collectionName)}>
-            Rechercher
-          </button>
-        </div>
-        <div className="searchContrat">
-          <div>
-            <label>Chaîne : </label>
-            <select value={chain} onChange={(e) => setChain(e.target.value)}>
-              <option value="" disabled>
-                Sélectionnez une chaîne
-              </option>
-              {chains.map((ch) => (
-                <option key={ch} value={ch}>
-                  {ch}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Nom du contrat : </label>
-            <input
-              type="text"
-              value={contratNumber}
-              onChange={(e) => setContratNumber(e.target.value)}
-            />
-          </div>
-            <button  className="buttonsSearch"onClick={() => fetchContratNFTs(contratNumber)}>
-              Rechercher
-            </button>
-        </div>
-        <div className="searchWallet">
-          <div>
-            <label>Blockchain : </label>
-            <select value={chain} onChange={(e) => setChain(e.target.value)}>
-              <option value="" disabled>
-                Sélectionnez une chaîne
-              </option>
-              {chains.map((ch) => (
-                <option key={ch} value={ch}>
-                  {ch}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Mon Wallet : </label>
-            <input
-              type="text"
-              value={walletAddress}
-              onChange={(e) => setWalletAddress(e.target.value)}
-            />
-          </div>
-            <button  className="buttonsSearch"onClick={() => fetchWalletAddress(walletAddress)}>
-              Rechercher
-            </button>
-        </div>
+    <div className="nft-search">
+      <h1>Search NFTs</h1>
+      <p>Choose a search type and enter a query to search for NFTs.</p>
+      <select
+        value={searchType}
+        onChange={(e) => setSearchType(e.target.value)}
+      >
+        <option value="collection">Collection</option>
+        <option value="contract">Contract</option>
+        <option value="wallet">Wallet</option>
+        <option value="token">Token</option>
+      </select>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder={getPlaceholder()}
+      />
+      <button onClick={handleSearch}>Search</button>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      <div className="nft-grid">
+        {nfts.map((nft) => {
+          const imageUrl = getImageUrl(nft.metadata);
+          return (
+            <div key={nft.token_id || nft.token_hash} className="nft-item">
+              {imageUrl && <img src={imageUrl} alt={nft.name || "NFT Image"} />}
+              <h2>{nft.name || "Unnamed NFT"}</h2>
+              <p>{nft.description || "No description available"}</p>
+            </div>
+          );
+        })}
       </div>
-      <div className="NFTCard" onClick={() => setCarouselVisible(true)}>
-        {nftImages.map((image, index) => (
-          <img key={index} src={image} alt="NFT" className="nft-thumbnail" />
-        ))}
-      </div>
-      {carouselVisible && <Carousel images={nftImages} onClose={() => setCarouselVisible(false)} />} */}
-      <TradinWiewWidget />
     </div>
   );
-}
+};
 
 export default UserNFT;

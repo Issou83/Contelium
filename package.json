@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "api": "^6.1.1",
-    "axios": "^1.5.0",
+    "axios": "^1.7.2",
     "opensea-js": "^6.1.9",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
