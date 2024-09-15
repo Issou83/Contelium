@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import constPNG from "../../assets/conste.png"
-import "./index.css"
+import { useEffect } from "react";
+import constPNG from "../../assets/videoConstLogo.gif";
+import "./index.css";
 
 const SplashScreen = () => {
   // Pas besoin de `setSplashDone` ici, car il est géré dans `App.jsx`
@@ -9,10 +9,10 @@ const SplashScreen = () => {
   }, []);
 
   return (
-    <div className='splashScreen'>
-      <h1 className='titleSplash'>CONSTELIUM</h1>
+    <div className="splashScreen">
+      <h1 className="titleSplash">CONSTELIUM</h1>
       {/* Remplacer avec le chemin réel vers votre logo */}
-      <img className='Logo' src={constPNG} alt="Votre logo" />
+      <img className="Logo" src={constPNG} alt="Logo Constelium" />
     </div>
   );
 };

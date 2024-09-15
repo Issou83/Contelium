@@ -1,84 +1,101 @@
 .splashScreen {
-height: 100%;
-width: 100%;
-margin: auto;
-padding: auto;
-display: flex;
-justify-content: center;
-align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  padding: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .titleSplash {
-    font-family: 'Black Ops One', cursive;
-    font-size: 400%;
-    content: '';
-    position: absolute;
-    top: 10%;
+  font-family: "Black Ops One", cursive;
+  font-size: 400%;
+  content: "";
+  position: absolute;
+  top: 10%;
 }
 
 .titleSplash span {
-    position: relative;
+  position: relative;
 }
 .titleSplash span::after {
-    content: attr(data-letter);
-    position: absolute;
-    left: 0;
-    color: #fff900;
-    text-shadow: 
-    0 0 5px #fff900,
-    0 0 20px #fff900;
-    opacity: 0;
-    animation: blinking 1.25s ease-in-out infinite;
+  content: attr(data-letter);
+  position: absolute;
+  left: 0;
+  color: #fff900;
+  text-shadow: 0 0 5px #fff900, 0 0 20px #fff900;
+  opacity: 0;
+  animation: blinking 1.25s ease-in-out infinite;
 }
 
 @keyframes blinking {
-    0% {
-        opacity: 0;
-        color: #4c00ff;
-        text-shadow: 
-        0 0 5px #fff900,
-        0 0 20px #fff900;
-    }
-    30% {
-        opacity: 1;
-        color: #ffd900;
-    }
-    50% {
-        opacity: 0;
-        color: #e101ff;
-    }
+  0% {
+    opacity: 0;
+    color: #4c00ff;
+    text-shadow: 0 0 5px #fff900, 0 0 20px #fff900;
+  }
+  30% {
+    opacity: 1;
+    color: #ffd900;
+  }
+  50% {
+    opacity: 0;
+    color: #e101ff;
+  }
 }
 
-.titleSplash span:nth-child(2)::after{animation-delay: 0.1s;}
-.titleSplash span:nth-child(3)::after{animation-delay: 0.2s;}
-.titleSplash span:nth-child(4)::after{animation-delay: 0.3s;}
-.titleSplash span:nth-child(5)::after{animation-delay: 0.4s;}
-.titleSplash span:nth-child(6)::after{animation-delay: 0.5s;}
-.titleSplash span:nth-child(7)::after{animation-delay: 0.6s;}
-.titleSplash span:nth-child(8)::after{animation-delay: 0.7s;}
-.titleSplash span:nth-child(9)::after{animation-delay: 0.8s;}
-.titleSplash span:nth-child(10)::after{animation-delay: 0.9s;}
-.titleSplash span:nth-child(11)::after{animation-delay: 1s;}
+.titleSplash span:nth-child(2)::after {
+  animation-delay: 0.1s;
+}
+.titleSplash span:nth-child(3)::after {
+  animation-delay: 0.2s;
+}
+.titleSplash span:nth-child(4)::after {
+  animation-delay: 0.3s;
+}
+.titleSplash span:nth-child(5)::after {
+  animation-delay: 0.4s;
+}
+.titleSplash span:nth-child(6)::after {
+  animation-delay: 0.5s;
+}
+.titleSplash span:nth-child(7)::after {
+  animation-delay: 0.6s;
+}
+.titleSplash span:nth-child(8)::after {
+  animation-delay: 0.7s;
+}
+.titleSplash span:nth-child(9)::after {
+  animation-delay: 0.8s;
+}
+.titleSplash span:nth-child(10)::after {
+  animation-delay: 0.9s;
+}
+.titleSplash span:nth-child(11)::after {
+  animation-delay: 1s;
+}
 
 .Logo {
-    animation: logoRotate 2.5s ease-in-out;
-width: 50%;
-margin: auto;
-opacity: 0;
+  /* animation: logoRotate 2.5s ease-in-out; */
+  width: 50%;
+  zoom: 20%;
+  padding-top: 50px;
+  margin: auto;
+  /* opacity: 0; */
 }
 
-@keyframes logoRotate {
-    0% {
-        transform: rotate(0deg);
-        opacity: 1
-    }
-    75% {
-        transform: rotate(359deg);
-        opacity: 1;
-    }
-    100% {
-        transform: rotate(359deg);
-        opacity: 0;
-    }
-}
-
+/* @keyframes logoRotate {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(359deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(359deg);
+    opacity: 0;
+  }
+} */
