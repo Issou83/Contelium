@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import "./index.css";
 
 const RegisterForm = () => {
@@ -19,21 +20,35 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://constelium-api.vercel.app/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://constelium-api.vercel.app/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
       if (data.message) {
-        console.log("User registered:", data.message);
+        console.log("Utilisateur enregistré:", data.message);
       }
     } catch (error) {
-      console.error("There was an error registering the user", error);
+      console.error("Erreur lors de l'inscription", error);
     }
+  };
+
+  const handleOAuthSuccess = (response) => {
+    console.log("Inscription via OAuth réussie:", response);
+    // Gérer l'intégration avec votre backend ici si nécessaire
+    alert("Inscription via Google réussie");
+  };
+
+  const handleOAuthError = () => {
+    console.error("Erreur lors de l'inscription via Google");
+    alert("Erreur lors de l'inscription via Google");
   };
 
   return (
@@ -74,10 +89,18 @@ const RegisterForm = () => {
             value={formData.password}
             onChange={handleChange}
           />
-        <button className="btnValider" type="submit">
-          Valider
-        </button>
+          <button className="btnValider" type="submit">
+            Valider
+          </button>
         </form>
+
+        {/* Bouton Google OAuth */}
+        <GoogleOAuthProvider clientId="477152561324-4ss8k2mr137ufu5sljofoqeqhejc7ttc.apps.googleusercontent.com">
+          <GoogleLogin
+            onSuccess={handleOAuthSuccess}
+            onError={handleOAuthError}
+          />
+        </GoogleOAuthProvider>
       </div>
     </div>
   );

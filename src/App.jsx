@@ -3,11 +3,9 @@ import SplashScreen from "./components/SplashScreen/SplashScreen";
 import MainMenu from "./components/MainMenu/MainMenu";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import LoginForm from "./components/LoginForm/LoginForm";
-import ProfilePage from "./components/ProfilePage/ProfilePage"; // Importez le nouveau composant
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 import UserMenu from "./components/UserMenu/UserMenu";
-
 import { UserProvider } from "./UserContext";
-
 import "./App.css";
 import UserNFT from "./components/userNFT/UserNFT";
 import UserCryptos from "./components/userCrytpos/userCryptos";
@@ -35,8 +33,7 @@ function App() {
         {view === "NFTs" && <UserNFT setView={setView} />}
         {view === "CRYPTOS" && <UserCryptos setView={setView} />}
         {view === "login" && <LoginForm setView={setView} />}
-        {view === "profile" && <ProfilePage setView={setView} />}{" "}
-        {/* Remplacez <UserProfile /> par <ProfilePage /> */}
+        {view === "profile" && <ProfilePage setView={setView} />}
       </div>
     </UserProvider>
   );
