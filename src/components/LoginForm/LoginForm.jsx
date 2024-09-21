@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../../UserContext"; // Import du UserContext
 import PropTypes from "prop-types";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; // Import pour Google OAuth
 import "./index.css";
 
 const LoginForm = ({ setView }) => {
@@ -23,29 +23,41 @@ const LoginForm = ({ setView }) => {
 
       if (response.data.success) {
         console.log("Authentification réussie:", response.data);
-        alert("Connexion Réussie");
+        localStorage.setItem("jwtToken", response.data.token); // Stocker le token dans localStorage
         setUser(response.data.user);
-        setView("userMenu"); // Redirigez l'utilisateur vers le UserMenu après une connexion réussie
-      } else {
-        setErrorMessage("Échec de l'authentification");
-        alert("Échec de la connexion");
+        setView("userMenu"); // Rediriger vers UserMenu après la connexion
       }
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        setErrorMessage("Échec de l'authentification");
-        alert("Échec de la connexion");
-      } else {
-        console.error("Une erreur est survenue:", error);
-        alert("Une erreur est survenue lors de la tentative de connexion");
-      }
+      console.error("Erreur de connexion:", error);
+      setErrorMessage("Échec de la connexion");
     }
   };
 
-  const handleOAuthSuccess = (response) => {
-    console.log("OAuth response:", response);
-    // Gérer l'intégration avec votre backend ici si nécessaire
-    alert("Connexion via Google réussie");
-    setView("userMenu");
+  const handleOAuthSuccess = async (response) => {
+    try {
+      const googleToken = response.credential;
+      const backendResponse = await axios.post(
+        "https://constelium-api.vercel.app/user/oauth-login",
+        {
+          token: googleToken,
+        }
+      );
+
+      if (backendResponse.data.success) {
+        console.log("Connexion via Google réussie:", backendResponse.data);
+
+        // Stocker le token dans localStorage
+        localStorage.setItem("jwtToken", backendResponse.data.token);
+
+        setUser(backendResponse.data.user);
+        setView("userMenu"); // Rediriger vers UserMenu après une connexion réussie
+      } else {
+        alert("Erreur lors de la connexion via Google");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion Google", error);
+      alert("Erreur lors de la connexion via Google");
+    }
   };
 
   const handleOAuthError = () => {
