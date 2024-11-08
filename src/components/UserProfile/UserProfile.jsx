@@ -1,5 +1,6 @@
-// import { useState, useEffect } from "react";
-// import { useUser } from '../../UserContext';
+import { useState, useEffect } from "react";
+import { useUser } from "../../UserContext";
+import axios from "axios";
 
 function UserProfile() {
   const { user, updateUser } = useUser();
@@ -7,14 +8,14 @@ function UserProfile() {
   const [editable, setEditable] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: user ? user.name : "",
+    username: user ? user.username : "",
     email: user ? user.email : "",
     ethAddress: user ? user.ethAddress : "",
   });
 
   useEffect(() => {
     setFormData({
-      name: user ? user.name : "",
+      username: user ? user.username : "",
       email: user ? user.email : "",
       ethAddress: user ? user.ethAddress : "",
     });
@@ -28,24 +29,44 @@ function UserProfile() {
     setEditable(!editable);
   };
 
-  const handleUpdate = () => {
-    updateUser(formData); // Mettez à jour les données de l'utilisateur.
-    setEditable(false);
+  const handleUpdate = async () => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const response = await axios.put(
+        "https://constelium-api.vercel.app/user/update",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success) {
+        updateUser(response.data.user); // Mettre à jour le contexte utilisateur
+        setEditable(false);
+      } else {
+        alert("Erreur lors de la mise à jour du profil");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du profil", error);
+      alert("Erreur lors de la mise à jour du profil");
+    }
   };
 
   return (
     <div>
       <h2>Profil</h2>
       <div>
-        <label>Nom:</label>
+        <label>Pseudo:</label>
         {editable ? (
           <input
-            name="name"
-            value={formData.name}
+            name="username"
+            value={formData.username}
             onChange={handleInputChange}
           />
         ) : (
-          <p>{user ? user.name : "Chargement..."}</p>
+          <p>{user ? user.username : "Chargement..."}</p>
         )}
       </div>
       <div>

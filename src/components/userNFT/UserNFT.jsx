@@ -1,8 +1,9 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import "./index.css";
 
-const UserNFT = () => {
+const UserNFT = ({ setView }) => {
   const [query, setQuery] = useState("");
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,8 +39,7 @@ const UserNFT = () => {
     try {
       const response = await axios.get(endpoint, {
         headers: {
-          "X-API-Key":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjdkYzBkNTJhLTQwMDgtNDllOS04MWY1LWZjNDIwZTc5N2Y3NyIsIm9yZ0lkIjoiMzk3Njc3IiwidXNlcklkIjoiNDA4NjI2IiwidHlwZUlkIjoiZmI4YjFhMDItYTYxOS00ZmQ0LTk3ZWUtMGFhNjFhZjc4OGZkIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3MTkyNTc2OTUsImV4cCI6NDg3NTAxNzY5NX0.NC9bC2vFJwkWnU8M-_1GygfTulUFblEnEmCMV_bSKT0", // Remplacez par votre clé API Moralis
+          "X-API-Key": "VOTRE_CLE_API_MORALIS",
           accept: "application/json",
         },
         params,
@@ -118,8 +118,18 @@ const UserNFT = () => {
           );
         })}
       </div>
+      <button
+        className="returnBtnmainUserMenu"
+        onClick={() => setView("userMenu")}
+      >
+        Retour au menu
+      </button>
     </div>
   );
+};
+
+UserNFT.propTypes = {
+  setView: PropTypes.func.isRequired,
 };
 
 export default UserNFT;

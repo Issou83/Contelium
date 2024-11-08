@@ -6,7 +6,7 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google"; // Impor
 import "./index.css";
 
 const LoginForm = ({ setView }) => {
-  const { setUser } = useUser();
+  const { updateUser } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
@@ -24,7 +24,7 @@ const LoginForm = ({ setView }) => {
       if (response.data.success) {
         console.log("Authentification réussie:", response.data);
         localStorage.setItem("jwtToken", response.data.token); // Stocker le token dans localStorage
-        setUser(response.data.user);
+        updateUser(response.data.user);
         setView("userMenu"); // Rediriger vers UserMenu après la connexion
       }
     } catch (error) {
@@ -49,7 +49,9 @@ const LoginForm = ({ setView }) => {
         // Stocker le token dans localStorage
         localStorage.setItem("jwtToken", backendResponse.data.token);
 
-        setUser(backendResponse.data.user);
+        // Mettre à jour l'utilisateur et le token OAuth
+        updateUser(backendResponse.data.user, backendResponse.data.oauthToken);
+
         setView("userMenu"); // Rediriger vers UserMenu après une connexion réussie
       } else {
         alert("Erreur lors de la connexion via Google");

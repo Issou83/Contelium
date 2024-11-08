@@ -16,12 +16,16 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
     if (token) {
       setOauthToken(token); // Stocker le jeton OAuth si fourni
+    } else {
+      setOauthToken(null); // Réinitialiser le token OAuth si aucun token n'est fourni
     }
   };
 
   const value = {
     user,
     oauthToken, // Ajout du token OAuth au contexte
+    updateUser, // Renommé pour refléter correctement la fonction
+
     setUser: updateUser,
   };
 

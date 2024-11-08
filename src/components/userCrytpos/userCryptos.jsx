@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import { useUser } from "../../UserContext";
-import TradinWiewWidget from "../TradingViewWidget/TradingWiew";
 import PropTypes from "prop-types";
+import TradinWiewWidget from "../TradingViewWidget/TradingWiew";
 import "./index.css";
 
 function UserCryptos({ setView }) {
@@ -14,7 +12,7 @@ function UserCryptos({ setView }) {
         className="returnBtnmainUserMenu"
         onClick={() => setView("userMenu")}
       >
-        Accueil
+        Retour au menu
       </button>
     </div>
   );
